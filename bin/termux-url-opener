@@ -1,16 +1,22 @@
 #!/bin/bash
 clear
-rootfolderVideo="/d/temp/script/"
-rootfolderAudio="/d/temp/script/"
+# root folder PC
+# rootfolderVideo="/d/temp/script/"
+# rootfolderAudio="/d/temp/script/"
 
+# root folder termux
 storage='/data/data/com.termux/files/home/storage/'
 rootfolderVideo="${storage}movies/"
 rootfolderAudio="${storage}music/"
-bold=$(tput bold)
-normal=$(tput sgr0)
+
+# options
 audio="--ignore-config -f \'bestaudio[ext=m4a]\' -i --no-check-certificate --embed-thumbnail --add-metadata"
 video="--ignore-config -f \'bestvideo[height<=480]+bestaudio[ext=m4a]/bestvideo+bestaudio/best\' --merge-output-format mp4 -i --no-check-certificate --add-metadata"
-videohd="--ignore-config -i --no-check-certificate --add-metadata" 
+videohd="--ignore-config -i --no-check-certificate --add-metadata"
+downloadFast=--external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'
+
+bold=$(tput bold)
+normal=$(tput sgr0)
 echo "${bold}JOSCH\'s Downloader${normal}"
 echo "> ${1}"
 
@@ -28,7 +34,7 @@ if [[ $REPLY =~ ^[Aa]$ ]]; then
 	echo $'\nSelect folder ? (any other character=new folder)'
 	read -p "> " -n 2 -r
 	echo $''
-	folder="$(ls -1 -d */ | sed -n ${REPLY}p 2> /dev/null)" 
+	folder="$(ls -1 -d */ | sed -n ${REPLY}p 2> /dev/null)"
 	if [[ -z "${folder}" ]]; then
 		echo $'\nNew folder name ?'
 		read -p "> " -r
@@ -36,17 +42,17 @@ if [[ $REPLY =~ ^[Aa]$ ]]; then
 		mkdir "$REPLY"
 		folder="${REPLY}/"
 	fi
-	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M' $1
+	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio ${downloadFast} $1
 	#termux-open "${rootfolderAudio}${folder}"
 elif [[ $REPLY =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
 	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio $1
 elif [[ $REPLY =~ ^[Vv]$ ]]; then
 	echo "Downloading video..."
-	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video $1
+	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video ${downloadFast} $1
 elif [[ $REPLY =~ ^[Hh]$ ]]; then
 	echo "Downloading video..."
-	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M' $1
+	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd ${downloadFast} $1
 else
 	echo "Exiting..."
 fi
