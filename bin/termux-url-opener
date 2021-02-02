@@ -62,9 +62,9 @@ echo $origFileName
 playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home\/storage/storage\/shared/")
 echo $playFileName
 read -p "> " -n 1 -r
-echo termux-open $playFileName
-termux-open $playFileName
-read -p "> " -n 1 -r
+# echo termux-open $playFileName
+# termux-open $playFileName
+# read -p "> " -n 1 -r
 echo termux-open ~/$(printf '%q' "$playFileName")
 termux-open ~/$(printf '%q' "$playFileName")
 read -p "> " -n 1 -r
