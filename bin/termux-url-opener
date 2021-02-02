@@ -61,7 +61,7 @@ fi
 origFileName=$(cat ~/youtube-dl.log | grep "\[ffmpeg\] Adding metadata to " | sed "s/^\[ffmpeg\] Adding metadata to '\(.*\)'/\1/")
 playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home\/storage/storage\/shared/")
 playFileNameESC=$(printf '%q' "$playFileName")
-echo $playFileNameESC
+echo $playFileNameESC > hallo1.txt
 ls
 echo $''
 termux-open $playFileNameESC
