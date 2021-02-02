@@ -57,7 +57,7 @@ else
 	echo "Exiting..."
 fi
 
-filename=$(cat ~/youtube-dl.log | grep.exe "\[ffmpeg\] Correcting container in " | sed "s/^\[ffmpeg\] Correcting container in //")
+filename=$(cat ~/youtube-dl.log | grep "\[ffmpeg\] Correcting container in " | sed "s/^\[ffmpeg\] Correcting container in //")
 echo $filename
 read -p "> " -n 1 -r
 
