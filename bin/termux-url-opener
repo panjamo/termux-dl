@@ -40,7 +40,7 @@ if [[ $REPLY =~ ^[Aa]$ ]]; then
 		read -p "> " -r
 		echo $''
 		mkdir "$REPLY"
-		folder="${REPLY}/"
+    	folder="${REPLY}/"
 	fi
 	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio ${downloadFast} $1 | tee ~/youtube-dl.log
 	#termux-open "${rootfolderAudio}${folder}"
@@ -56,5 +56,9 @@ elif [[ $REPLY =~ ^[Hh]$ ]]; then
 else
 	echo "Exiting..."
 fi
+
+filename=$(cat ~/youtube-dl.log | grep.exe "\[ffmpeg\] Correcting container in " | sed "s/^\[ffmpeg\] Correcting container in //")
+echo $filename
+read -p "> " -n 1 -r
 
 termux-notification --title "Download ready..." --content "Completed: $folder$1"
