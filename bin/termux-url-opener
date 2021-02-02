@@ -65,5 +65,8 @@ read -p "> " -n 1 -r
 echo termux-open "$playFileName"
 termux-open "$playFileName"
 read -p "> " -n 1 -r
+echo termux-open '$playFileName'
+termux-open '$playFileName'
+read -p "> " -n 1 -r
 
 termux-notification --title "Download ready..." --content "Completed: $folder$1"
