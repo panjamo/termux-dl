@@ -59,7 +59,7 @@ fi
 
 origFileName=$(cat ~/youtube-dl.log | grep "\[ffmpeg\] Correcting container in " | sed "s/^\[ffmpeg\] Correcting container in //")
 echo $origFileName
-playFileName=$(echo $origFileName | sed "s/^\/data\/data\/com.termux\/files\/home\/storage/storage\/shared/")
+playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home\/storage/storage\/shared/")
 echo $playFileName
 read -p "> " -n 1 -r
 termux-open $playFileName
