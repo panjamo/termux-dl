@@ -59,7 +59,7 @@ else
 fi
 
 origFileName=$(cat ~/youtube-dl.log | grep "\[ffmpeg\] Adding metadata to " | sed "s/^\[ffmpeg\] Adding metadata to '\(.*\)'/\1/")
-playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home\/storage/storage\/shared/")
+playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home\///")
 playFileNameESC=$(printf '%q' "$playFileName")
 echo $playFileNameESC > hallo1.txt
 ls
