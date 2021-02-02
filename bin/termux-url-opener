@@ -14,7 +14,6 @@ audio="--ignore-config -f \'bestaudio[ext=m4a]\' -i --no-check-certificate --emb
 video="--ignore-config -f \'bestvideo[height<=480]+bestaudio[ext=m4a]/bestvideo+bestaudio/best\' --merge-output-format mp4 -i --no-check-certificate --add-metadata"
 videohd="--ignore-config -i --no-check-certificate --add-metadata"
 downloadFast=--external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'
-logfile=tee ~/youtube-dl.log
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -43,17 +42,17 @@ if [[ $REPLY =~ ^[Aa]$ ]]; then
 		mkdir "$REPLY"
 		folder="${REPLY}/"
 	fi
-	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio ${downloadFast} $1 | ${logfile}
+	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio ${downloadFast} $1 | tee ~/youtube-dl.log
 	#termux-open "${rootfolderAudio}${folder}"
 elif [[ $REPLY =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
-	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio $1 | ${logfile}
+	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio $1 | tee ~/youtube-dl.log
 elif [[ $REPLY =~ ^[Vv]$ ]]; then
 	echo "Downloading video..."
-	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video ${downloadFast} $1 | ${logfile}
+	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video ${downloadFast} $1 tee ~/youtube-dl.log
 elif [[ $REPLY =~ ^[Hh]$ ]]; then
 	echo "Downloading video..."
-	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd ${downloadFast} $1 | ${logfile}
+	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd ${downloadFast} $1 | tee ~/youtube-dl.log
 else
 	echo "Exiting..."
 fi
