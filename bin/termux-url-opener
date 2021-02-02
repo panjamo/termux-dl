@@ -67,9 +67,11 @@ echo $playFileName
 read -p "> " -n 1 -r
 echo $playFileName
 	echo $''
-echo termux-open ~/$(printf '%q' "$playFileName")
+playFileNameESC=~/$(printf '%q' "$playFileName")
+echo $playFileNameESC
+# echo termux-open ~/$(printf '%q' "$playFileName")
 	echo $''
-termux-open ~/$(printf '%q' "$playFileName")
+# termux-open ~/$(printf '%q' "$playFileName")
 read -p "> " -n 1 -r
 
 termux-notification --title "Download ready..." --content "Completed: $folder$1"
