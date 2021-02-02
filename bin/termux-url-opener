@@ -62,7 +62,7 @@ playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home
 playFileNameESC=$(printf '%q' "$playFileName")
 echo $playFileNameESC
 echo $''
-# termux-open filename
+termux-open $playFileNameESC
 read -p "> " -n 1 -r
 
 termux-notification --title "Download ready..." --content "Completed: $folder$1"
