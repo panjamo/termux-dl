@@ -1,5 +1,4 @@
 #!/bin/bash
-
 clear
 rootfolderVideo="/d/temp/script/"
 rootfolderAudio="/d/temp/script/"
@@ -12,9 +11,11 @@ normal=$(tput sgr0)
 audio="--ignore-config -f \'bestaudio[ext=m4a]\' -i --no-check-certificate --embed-thumbnail --add-metadata"
 video="--ignore-config -f \'bestvideo[height<=480]+bestaudio[ext=m4a]/bestvideo+bestaudio/best\' --merge-output-format mp4 -i --no-check-certificate --add-metadata"
 videohd="--ignore-config -i --no-check-certificate --add-metadata" 
-echo "${bold}Youtube-dl${normal}"
+echo "${bold}JOSCH\'s Downloader${normal}"
 echo "> ${1}"
+
 #youtube-dl -F $1
+
 echo $'\nDownload as an [A]udio or [P]laylist or [V]ideo or [H]D Video file ? (A/V/H/E)'
 
 read -p "> " -n 1 -r
@@ -35,10 +36,10 @@ if [[ $REPLY =~ ^[Aa]$ ]]; then
 		mkdir "$REPLY"
 		folder="${REPLY}/"
 	fi
-	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1
+	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M' $1
 	#termux-open "${rootfolderAudio}${folder}"
 elif [[ $REPLY =~ ^[Pp]$ ]]; then
-	echo "Downloading video..."
+	echo "Downloading audio playlist..."
 	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio $1
 elif [[ $REPLY =~ ^[Vv]$ ]]; then
 	echo "Downloading video..."
@@ -50,6 +51,4 @@ else
 	echo "Exiting..."
 fi
 
-
-
-termux-notification --title "YouTube-DL" --content "Completed: $folder$1"
+termux-notification --title "Download ready..." --content "Completed: $folder$1"
