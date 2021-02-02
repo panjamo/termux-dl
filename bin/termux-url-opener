@@ -52,6 +52,7 @@ elif [[ $REPLY =~ ^[Vv]$ ]]; then
 	echo "Downloading video..."
 	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video ${downloadFast} $1 tee ~/youtube-dl.log
 elif [[ $REPLY =~ ^[Hh]$ ]]; then
+
 	echo "Downloading video..."
 	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd ${downloadFast} $1 | tee ~/youtube-dl.log
 else
@@ -61,10 +62,8 @@ fi
 origFileName=$(cat ~/youtube-dl.log | grep "\[ffmpeg\] Adding metadata to " | sed "s/^\[ffmpeg\] Adding metadata to '\(.*\)'/\1/")
 playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home\///")
 playFileNameESC=$(printf '%q' "$playFileName")
-echo $playFileNameESC > hallo1.txt
-ls
-echo $''
-termux-open $playFileNameESC
-read -p "> " -n 1 -r
+echo $playFileNameESC
+# termux-open $playFileNameESC
+# read -p "> " -n 1 -r
 
-termux-notification --title "Download ready..." --content "Completed: $folder$1"
+termux-notification --title "Download ready..." --content "Completed: $playFileName"
