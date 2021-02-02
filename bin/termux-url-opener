@@ -28,7 +28,7 @@ read -p "> " -n 1 -r
 echo $''
 if [[ $REPLY =~ ^[Aa]$ ]]; then
 	echo "Downloading audio file..."
-	cd $rootfolderAudio
+	pushd $rootfolderAudio
 	pwd
 	ls -1 -d */ | cat -b
 	echo $'\nSelect folder ? (any other character=new folder)'
@@ -42,6 +42,7 @@ if [[ $REPLY =~ ^[Aa]$ ]]; then
 		mkdir "$REPLY"
     	folder="${REPLY}/"
 	fi
+    popd
 	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio ${downloadFast} $1 | tee ~/youtube-dl.log
 	#termux-open "${rootfolderAudio}${folder}"
 elif [[ $REPLY =~ ^[Pp]$ ]]; then
@@ -61,6 +62,7 @@ origFileName=$(cat ~/youtube-dl.log | grep "\[ffmpeg\] Adding metadata to " | se
 playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home\/storage/storage\/shared/")
 playFileNameESC=$(printf '%q' "$playFileName")
 echo $playFileNameESC
+ls
 echo $''
 termux-open $playFileNameESC
 read -p "> " -n 1 -r
