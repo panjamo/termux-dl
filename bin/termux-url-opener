@@ -50,10 +50,10 @@ elif [[ $REPLY =~ ^[Pp]$ ]]; then
 	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio $1 | ${logfile}
 elif [[ $REPLY =~ ^[Vv]$ ]]; then
 	echo "Downloading video..."
-	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video ${downloadFast} | $1 ${logfile}
+	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video ${downloadFast} $1 | ${logfile}
 elif [[ $REPLY =~ ^[Hh]$ ]]; then
 	echo "Downloading video..."
-	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd ${downloadFast} | $1 ${logfile}
+	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd ${downloadFast} $1 | ${logfile}
 else
 	echo "Exiting..."
 fi
