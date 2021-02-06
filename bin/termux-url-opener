@@ -83,7 +83,7 @@ if [[ $command =~ ^[AaBb]$ ]]; then
         $1
     filename=$(youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --get-filename)
     title=$(youtube-dl --output "%(title)s" $audio $1 --get-filename)
-    makeChapters
+    # makeChapters
 
 elif [[ $command =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
