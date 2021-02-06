@@ -61,13 +61,13 @@ fi
 
 origFileName=$(cat ~/youtube-dl.log | grep "\[ffmpeg\] Adding metadata to " | sed "s/^\[ffmpeg\] Adding metadata to '\(.*\)'/\1/")
 playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home\///")
-echo playFileName
-termux-open playFileName
+echo ${playFileName}
+termux-open ${playFileName}
 read -p "> " -n 1 -r
 
 playFileNameESC=$(printf '%q' "$playFileName")
-echo $playFileNameESC
-termux-open $playFileNameESC
+echo ${playFileNameESC}
+termux-open ${playFileNameESC}
 read -p "> " -n 1 -r
 
 termux-notification --title "Download ready..." --content "Completed: $playFileName"
