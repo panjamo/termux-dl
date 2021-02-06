@@ -45,14 +45,14 @@ if [[ $REPLY =~ ^[Aa]$ ]]; then
     popd
 	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
-        $1 | tee ~/youtube-dl.log
+        $1
     filename=$(youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --get-filename)
-    title=   $(youtube-dl --output "%(title)s" $audio $1 --get-filename)
+    title=$(youtube-dl --output "%(title)s" $audio $1 --get-filename)
 
 elif [[ $REPLY =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
 	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio\
-        $1 | tee ~/youtube-dl.log
+        $1
 elif [[ $REPLY =~ ^[Vv]$ ]]; then
 	echo "Downloading video..."
 	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video\
@@ -62,7 +62,7 @@ elif [[ $REPLY =~ ^[Hh]$ ]]; then
 	echo "Downloading video..."
 	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
-        $1 | tee ~/youtube-dl.log
+        $1
 else
 	echo "Exiting..."
 fi
