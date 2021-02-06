@@ -22,11 +22,11 @@ echo "> ${1}"
 
 #youtube-dl -F $1
 
-echo $'\nDownload as an [Ab]udio or [P]laylist or [V]ideo or [H]D Video file ? (A/V/H/E)'
+echo $'\nDownload as an [Aa]udio or [P]laylist or [V]ideo or [H]D Video file ? (A/V/H/E)'
 
 read -p "> " -n 1 -r
 echo $''
-if [[ $REPLY =~ ^[AaBb]$ ]]; then
+if [[ $REPLY =~ ^[Aa]$ ]]; then
 	echo "Downloading audio file..."
 	pushd $rootfolderAudio
 	pwd
@@ -46,12 +46,8 @@ if [[ $REPLY =~ ^[AaBb]$ ]]; then
 	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
         $1 | tee ~/youtube-dl.log
-    filename=$(youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s"git pu $audio $1 --get-filename)
-    title=$(youtube-dl --output "%(title)s" $audio $1 --get-filename)
-    if [[ $REPLY =~ ^[Bb]$ ]]; then
-    # /C/Program\ Files/VideoLAN/VLC/vlc.exe "$filename"
-        termux-open "$filename"
-    fi
+    filename=$(youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --get-filename)
+    title=   $(youtube-dl --output "%(title)s" $audio $1 --get-filename)
 
 elif [[ $REPLY =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
@@ -70,6 +66,12 @@ elif [[ $REPLY =~ ^[Hh]$ ]]; then
 else
 	echo "Exiting..."
 fi
+
+if [[ $REPLY =~ ^[A]$ ]]; then
+# /C/Program\ Files/VideoLAN/VLC/vlc.exe "$filename"
+    termux-open "$filename"
+fi
+
 
 # origFileName=$(cat ~/youtube-dl.log | grep "\[ffmpeg\] Adding metadata to " | sed "s/^\[ffmpeg\] Adding metadata to '\(.*\)'/\1/")
 # playFileName=$(echo $origFileName | sed "s/\/data\/data\/com.termux\/files\/home\///")
