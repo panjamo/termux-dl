@@ -1,5 +1,38 @@
 #!/bin/bash
 clear
+filename=
+function makeChapters {
+    metadata=./metadata.txt
+    rm $metadata 2> /dev/null
+
+    ffmpeg -i "$filename" -f ffmetadata $metadata
+
+    length=$(ffmpeg -i "$filename" 2>&1 | grep Duration | cut -d ' ' -f 4 | sed s/,// )
+    lengthInMicroSeconds=$(echo $length | awk -F: '{ print ($1 * 3600000) + ($2 * 60000) + ($3 * 1000) }')
+
+    echo $lengthInMicroSeconds
+
+    chapterMinutes=10
+    for i in {0..2000}
+    do
+        echo [CHAPTER] >> $metadata
+        echo TIMEBASE=1/1000 >> $metadata
+        echo START=$(($i * $chapterMinutes * 60000)) >> $metadata
+        endChapter=$(((($i + 1) * $chapterMinutes * 60000) - 1))
+        if [[ $endChapter -lt $lengthInMicroSeconds ]]; then
+            echo END=$endChapter >> $metadata
+            echo title=Kapitel $i >> $metadata
+        else
+            echo END=$lengthInMicroSeconds >> $metadata
+            echo title=Kapitel $($i + 1) >> $metadata
+            break
+        fi
+    done
+    ffmpeg -i "$filename" -i $metadata -map_metadata 1 -codec copy "${filename}.temp"
+    mv -f "${filename}.temp" "$filename"
+}
+
+
 
 # root folder termux
 storage='/data/data/com.termux/files/home/storage/'
@@ -7,8 +40,8 @@ rootfolderVideo="${storage}movies/"
 rootfolderAudio="${storage}music/"
 
 # root folder PC
-# rootfolderVideo="/d/temp/hallo/"
-# rootfolderAudio="/d/temp/hallo/"
+rootfolderVideo="/d/temp/hallo/"
+rootfolderAudio="/d/temp/hallo/"
 
 # options
 audio="--ignore-config -f \'bestaudio[ext=m4a]\' -i --no-check-certificate --embed-thumbnail --add-metadata"
@@ -49,6 +82,7 @@ if [[ $command =~ ^[AaBb]$ ]]; then
         $1
     filename=$(youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --get-filename)
     title=$(youtube-dl --output "%(title)s" $audio $1 --get-filename)
+    makeChapters
 
 elif [[ $command =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
