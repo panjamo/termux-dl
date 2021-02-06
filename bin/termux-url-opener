@@ -30,7 +30,6 @@ function makeChapters {
     done
     ffmpeg -i "$filename" -i $metadata -map_metadata 1 -codec copy "${filename}.temp"
     mv -f "${filename}.temp" "$filename"
-    read -p "> " -n 1 -r
 }
 
 
