@@ -40,8 +40,8 @@ rootfolderVideo="${storage}movies/"
 rootfolderAudio="${storage}music/"
 
 # root folder PC
-rootfolderVideo="/d/temp/hallo/"
-rootfolderAudio="/d/temp/hallo/"
+# rootfolderVideo="/d/temp/hallo/"
+# rootfolderAudio="/d/temp/hallo/"
 
 # options
 audio="--ignore-config -f \'bestaudio[ext=m4a]\' -i --no-check-certificate --embed-thumbnail --add-metadata"
