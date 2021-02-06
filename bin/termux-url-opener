@@ -25,8 +25,9 @@ echo "> ${1}"
 echo $'\nDownload as an [Ab]udio or [P]laylist or [V]ideo or [H]D Video file ? (A/V/H/E)'
 
 read -p "> " -n 1 -r
+command=$REPLY
 echo $''
-if [[ $REPLY =~ ^[AaBb]$ ]]; then
+if [[ $command =~ ^[AaBb]$ ]]; then
 	echo "Downloading audio file..."
 	pushd $rootfolderAudio
 	pwd
@@ -39,7 +40,7 @@ if [[ $REPLY =~ ^[AaBb]$ ]]; then
 		echo $'\nNew folder name ?'
 		read -p "> " -r
 		echo $''
-		mkdir "$REPLY"
+		mkdir "$command"
     	folder="${REPLY}/"
 	fi
     popd
@@ -49,16 +50,16 @@ if [[ $REPLY =~ ^[AaBb]$ ]]; then
     filename=$(youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --get-filename)
     title=$(youtube-dl --output "%(title)s" $audio $1 --get-filename)
 
-elif [[ $REPLY =~ ^[Pp]$ ]]; then
+elif [[ $command =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
 	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio\
         $1
-elif [[ $REPLY =~ ^[Vv]$ ]]; then
+elif [[ $command =~ ^[Vv]$ ]]; then
 	echo "Downloading video..."
 	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
         ${downloadFast} $1 tee ~/youtube-dl.log
-elif [[ $REPLY =~ ^[Hh]$ ]]; then
+elif [[ $command =~ ^[Hh]$ ]]; then
 	echo "Downloading video..."
 	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
@@ -67,7 +68,7 @@ else
 	echo "Exiting..."
 fi
 
-if [[ $REPLY =~ ^[Bb]$ ]]; then
+if [[ $command =~ ^[Bb]$ ]]; then
 # /C/Program\ Files/VideoLAN/VLC/vlc.exe "$filename"
     termux-open "$filename"
 fi
