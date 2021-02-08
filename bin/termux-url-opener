@@ -100,7 +100,7 @@ elif [[ $command =~ ^[Hh]$ ]]; then
 else
 	echo "Exiting..."
 fi
-title=$(youtube-dl --output "%(title)s" $audio $1 --get-filename)
+title=$(youtube-dl --output "%(title)s" $1 --get-filename)
 
 if [[ $command =~ ^[Bb]$ ]]; then
 # /C/Program\ Files/VideoLAN/VLC/vlc.exe "$filename"
