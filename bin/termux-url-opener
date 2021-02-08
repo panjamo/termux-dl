@@ -91,7 +91,7 @@ elif [[ $command =~ ^[Vv]$ ]]; then
 	echo "Downloading video..."
 	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
-        ${downloadFast} $1 tee ~/youtube-dl.log
+        $1
 elif [[ $command =~ ^[Hh]$ ]]; then
 	echo "Downloading video..."
 	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd\
