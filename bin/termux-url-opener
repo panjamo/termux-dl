@@ -55,7 +55,7 @@ echo "> ${1}"
 
 #youtube-dl -F $1
 
-echo $'\nDownload as an [Au]dio or [Pl]aylist or [Vi]deo or [Hd] Video file ?'
+echo $'\nDownload as an [Au]dio or [P]laylist or [Vi]deo or [Hd] Video file ?'
 
 read -p "> " -n 1 -r
 command=$REPLY
@@ -83,12 +83,11 @@ if [[ $command =~ ^[AaUu]$ ]]; then
     filename=$(youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --get-filename)
     makeChapters
     title=$(youtube-dl --output "%(title)s" $audio $1 --get-filename)
-elif [[ $command =~ ^[PpLl]$ ]]; then
+elif [[ $command =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
 	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
         $1
-    filename=$(youtube-dl --output "${rootfolderAudio}%(playlist)s" $audio $1 --get-filename)
     title="Playlist $1"
 elif [[ $command =~ ^[VvIi]$ ]]; then
 	echo "Downloading video..."
@@ -108,7 +107,7 @@ else
 	echo "Exiting..."
 fi
 
-if [[ $command =~ ^[LlUuDdIi]$ ]]; then
+if [[ $command =~ ^[UuDdIi]$ ]]; then
 # /C/Program\ Files/VideoLAN/VLC/vlc.exe "$filename"
     termux-open "$filename"
 fi
