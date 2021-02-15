@@ -83,7 +83,7 @@ if [[ $command =~ ^[AaUu]$ ]]; then
     filename=$(youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --get-filename)
     makeChapters
     title=$(youtube-dl --output "%(title)s" $audio $1 --get-filename)
-elif [[ $command =~ ^[Pp]$ ]]; then
+elif [[ $command =~ ^[PpLl]$ ]]; then
 	echo "Downloading audio playlist..."
 	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
