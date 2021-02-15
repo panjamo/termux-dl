@@ -55,12 +55,12 @@ echo "> ${1}"
 
 #youtube-dl -F $1
 
-echo $'\nDownload as an [Ab]udio or [P]laylist or [V]ideo or [Hd] Video file ?'
+echo $'\nDownload as an [Au]dio or [P]laylist or [Vi]deo or [Hd] Video file ?'
 
 read -p "> " -n 1 -r
 command=$REPLY
 echo $''
-if [[ $command =~ ^[AaBb]$ ]]; then
+if [[ $command =~ ^[AaUu]$ ]]; then
 	echo "Downloading audio file..."
 	pushd $rootfolderAudio
 	pwd
@@ -86,13 +86,15 @@ if [[ $command =~ ^[AaBb]$ ]]; then
 elif [[ $command =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
 	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio\
+        --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
         $1
     title="Playlist $1"
-elif [[ $command =~ ^[Vv]$ ]]; then
+elif [[ $command =~ ^[VvIi]$ ]]; then
 	echo "Downloading video..."
 	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
         $1
+    filename=$(youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video $1 --get-filename)
     title=$(youtube-dl --output "%(title)s" $video $1 --get-filename)
 elif [[ $command =~ ^[HhDd]$ ]]; then
 	echo "Downloading video..."
@@ -105,7 +107,7 @@ else
 	echo "Exiting..."
 fi
 
-if [[ $command =~ ^[BbDd]$ ]]; then
+if [[ $command =~ ^[UuDdIi]$ ]]; then
 # /C/Program\ Files/VideoLAN/VLC/vlc.exe "$filename"
     termux-open "$filename"
 fi
