@@ -21,10 +21,10 @@ function makeChapters {
         endChapter=$(((($i + 1) * $chapterMinutes * 60000) - 1))
         if [[ $endChapter -lt $lengthInMicroSeconds ]]; then
             echo END=$endChapter >> $metadata
-            echo title=Kapitel $(($i + 1)) >> $metadata
+            echo title=\#$(($i + 1)) >> $metadata
         else
             echo END=$lengthInMicroSeconds >> $metadata
-            echo title=Kapitel $(($i + 1)) >> $metadata
+            echo title=\#$(($i + 1)) >> $metadata
             break
         fi
     done
