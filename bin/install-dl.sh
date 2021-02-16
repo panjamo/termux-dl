@@ -8,7 +8,7 @@ apt -y upgrade
 apt -y install termux-api 
 apt -y install python
 apt -y install ffmpeg
-pip -y install youtube-dl
+pip install youtube-dl
 pkg -y install aria2
 pkg -y install ncurses-utils
 pkg -y install atomicparsley
