@@ -12,3 +12,7 @@ pip install youtube-dl
 pkg install aria2
 pkg install ncurses-utils
 pkg install atomicparsley
+git config --global user.email "anonymous@anon.com"
+git config --global user.name anonymous
+git config credential.helper store
+git config pull.rebase true
