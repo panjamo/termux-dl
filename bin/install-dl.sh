@@ -9,9 +9,9 @@ apt -y install termux-api
 apt -y install python
 apt -y install ffmpeg
 pip install youtube-dl
-pkg -y install aria2
-pkg -y install ncurses-utils
-pkg -y install atomicparsley
+pkg install aria2 -y
+pkg install ncurses-utils -y
+pkg install atomicparsley -y
 git config --global user.email "anonymous@anon.com"
 git config --global user.name anonymous
 git config credential.helper store
