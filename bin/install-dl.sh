@@ -3,15 +3,15 @@
 # https://f-droid.org/en/packages/com.termux.widget/
 # https://f-droid.org/en/packages/com.termux.api/
 termux-setup-storage
-apt update
-apt upgrade
-apt install termux-api
-apt install python
-apt install ffmpeg
-pip install youtube-dl
-pkg install aria2
-pkg install ncurses-utils
-pkg install atomicparsley
+apt -y update
+apt -y upgrade
+apt -y install termux-api 
+apt -y install python
+apt -y install ffmpeg
+pip -y install youtube-dl
+pkg -y install aria2
+pkg -y install ncurses-utils
+pkg -y install atomicparsley
 git config --global user.email "anonymous@anon.com"
 git config --global user.name anonymous
 git config credential.helper store
