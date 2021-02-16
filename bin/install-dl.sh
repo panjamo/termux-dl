@@ -5,7 +5,7 @@
 termux-setup-storage
 apt -y update
 apt -y upgrade
-apt -y install termux-api 
+apt -y install termux-api
 apt -y install python
 apt -y install ffmpeg
 pip install youtube-dl
