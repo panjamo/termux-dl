@@ -2,7 +2,7 @@
 clear
 filename=
 function makeChapters {
-    metadata=./metadata.txt
+    metadata=./metadata_${RANDOM}${RANDOM}.txt
     rm $metadata 2> /dev/null
 
     ffmpeg -i "$filename" -f ffmetadata $metadata
@@ -29,6 +29,7 @@ function makeChapters {
         fi
     done
     ffmpeg -i "$filename" -i $metadata -map_metadata 1 -codec copy "$filename".m4a
+    rm $metadata 2> /dev/null
     mv "$filename".m4a "$filename"
 }
 
