@@ -16,3 +16,6 @@ git config --global user.email "anonymous@anon.com"
 git config --global user.name anonymous
 git config credential.helper store
 git config pull.rebase true
+storage='/data/data/com.termux/files/home/storage/'
+rootfolderAudio="${storage}music/"
+mkdir "$(rootfolderAudio)firstTry"
