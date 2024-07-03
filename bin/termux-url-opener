@@ -54,7 +54,7 @@ normal=$(tput sgr0)
 echo "${bold}JOSCH\'s Downloader${normal}"
 echo "> ${1}"
 
-#youtube-dl -F $1
+#yt-dlp -F $1
 
 echo $'\nDownload as an [Au]dio or [P]laylist or [Vi]deo or [Hd] Video file ?'
 
@@ -78,32 +78,32 @@ if [[ $command =~ ^[AaUu]$ ]]; then
     	folder="${REPLY}/"
 	fi
     popd
-	youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio\
+	yt-dlp --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
         $1
-    filename=$(youtube-dl --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --get-filename)
+    filename=$(yt-dlp --output "${rootfolderAudio}${folder}%(title)s.%(ext)s" $audio $1 --get-filename)
     makeChapters
-    title=$(youtube-dl --output "%(title)s" $audio $1 --get-filename)
+    title=$(yt-dlp --output "%(title)s" $audio $1 --get-filename)
 elif [[ $command =~ ^[Pp]$ ]]; then
 	echo "Downloading audio playlist..."
-	youtube-dl --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio\
+	yt-dlp --output "${rootfolderAudio}%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" $audio\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
         $1
     title="Playlist $1"
 elif [[ $command =~ ^[VvIi]$ ]]; then
 	echo "Downloading video..."
-	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video\
+	yt-dlp --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
         $1
-    filename=$(youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video $1 --get-filename)
-    title=$(youtube-dl --output "%(title)s" $video $1 --get-filename)
+    filename=$(yt-dlp --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $video $1 --get-filename)
+    title=$(yt-dlp --output "%(title)s" $video $1 --get-filename)
 elif [[ $command =~ ^[HhDd]$ ]]; then
 	echo "Downloading video..."
-	youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd\
+	yt-dlp --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd\
         --external-downloader aria2c --external-downloader-args '-c -j 16 -x 16 -s 16 -k 1M'\
         $1
-    filename=$(youtube-dl --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd $1 --get-filename)
-    title=$(youtube-dl --output "%(title)s" $video $1 --get-filename)
+    filename=$(yt-dlp --output "${rootfolderVideo}%(extractor_key)s/%(uploader)s-%(title)s.%(ext)s" $videohd $1 --get-filename)
+    title=$(yt-dlp --output "%(title)s" $video $1 --get-filename)
 else
 	echo "Exiting..."
 fi
