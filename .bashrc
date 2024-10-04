@@ -1,2 +1,2 @@
-git pull; apt -y upgrade; pip install --upgrade yt-dlp; pkg upgrade -y
+git pull; apt -y update; apt -y upgrade; pip install --upgrade yt-dlp; pkg upgrade -y
 
