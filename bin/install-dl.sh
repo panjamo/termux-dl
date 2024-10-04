@@ -16,4 +16,4 @@ git config --global user.name anonymous
 git config credential.helper store
 git config pull.rebase true
 termux-setup-storage
-mkdir storage/music/initial
+mkdir  ~/storage/music/initial
