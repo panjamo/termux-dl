@@ -4,8 +4,6 @@
 # https://f-droid.org/en/packages/com.termux.api/
 apt -y update
 apt -y upgrade
-apt -y update
-apt -y upgrade
 apt -y install termux-api
 apt -y install python
 apt -y install ffmpeg
@@ -18,8 +16,4 @@ git config --global user.name anonymous
 git config credential.helper store
 git config pull.rebase true
 termux-setup-storage
-storage='/data/data/com.termux/files/home/storage/'
-rootfolderAudio="${storage}music/"
-pushd $rootfolderAudio
-mkdir initial
-popd
+mkdir /storage/music/initial
