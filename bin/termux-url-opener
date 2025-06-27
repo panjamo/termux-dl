@@ -39,7 +39,7 @@ function makeChapters {
 
 # root folder termux
 storage='/data/data/com.termux/files/home/storage/'
-rootfolderVideo="${storage}movies/"
+rootfolderVideo="${storage}downloads/"
 rootfolderAudio="${storage}music/"
 
 # root folder PC
