@@ -1,5 +1,7 @@
 #!/bin/bash
 clear
+set -x
+
 filename=
 function makeChapters {
     metadata=./metadata_${RANDOM}${RANDOM}.txt
