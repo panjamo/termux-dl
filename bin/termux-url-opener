@@ -47,8 +47,8 @@ rootfolderAudio="${storage}music/"
 # rootfolderAudio="/d/temp/hallo/"
 
 # options
-audio="--ignore-config -f 'bestaudio[ext=m4a]' -i --no-check-certificate --embed-thumbnail --add-metadata"
-video="--ignore-config -f 'bestvideo[height<=480]+bestaudio[ext=m4a]/bestvideo+bestaudio/best' --merge-output-format mp4 -i --no-check-certificate --add-metadata"
+audio="--ignore-config -f bestaudio[ext=m4a] -i --no-check-certificate --embed-thumbnail --dd-metadata"
+video="--ignore-config -f bestvideo[height<=480]+bestaudio[ext=m4a]/bestvideo+bestaudio/best --merge-output-format mp4 -i --no-check-certificate --add-metadata"
 videohd="--ignore-config -i --no-check-certificate --add-metadata"
 
 bold=$(tput bold)
