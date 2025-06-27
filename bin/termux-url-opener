@@ -118,3 +118,4 @@ fi
 # read -p "> " -n 1 -r
 
 termux-notification --title "Download ready..." --content "$title"
+pause
